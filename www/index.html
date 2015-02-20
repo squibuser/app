@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta charset="utf-8">
+    <!-- Sets initial viewport load and disables zooming  -->
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+   <meta name="apple-mobile-web-app-title" content="squibTurf | Surf the turf">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Rum+Raisin' rel='stylesheet' type='text/css'>
+	<link href="image/icon-57.png" rel="shortcut icon"> 
+    <!-- iOS 7 iPad (retina) -->
+    <link href="image/icon-152.png" sizes="152x152" rel="apple-touch-icon">
+    <!-- iOS 6 iPad (retina) -->
+    <link href="image/icon-144.png" sizes="144x144" rel="apple-touch-icon">
+    <!-- iOS 7 iPhone (retina) -->
+    <link href="image/icon-120.png" sizes="120x120" rel="apple-touch-icon">
+    <!-- iOS 6 iPhone (retina) -->
+    <link href="image/icon-114.png" sizes="114x114" rel="apple-touch-icon">
+    <!-- iOS 7 iPad -->
+    <link href="image/icon-76.png" sizes="76x76" rel="apple-touch-icon">
+    <!-- iOS 6 iPad -->
+    <link href="image/icon-72.png" sizes="72x72" rel="apple-touch-icon">
+    <!-- iOS 6 iPhone -->
+    <link href="image/icon-57.png" sizes="57x57" rel="apple-touch-icon">
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="css/ratchet.css" rel="stylesheet">
+
+    <link href="css/custom.css" rel="stylesheet">
+<!--     <link href="css/emoji.css" rel="stylesheet"> -->
+    <script src="js/ratchet.js"></script>
+    <script src="js/fingerblast.js"></script>
+    <script>
+		 if (window.navigator.standalone) {$("meta[name='apple-mobile-web-app-status-bar-style']").remove();}
+    </script>
+    <!-- Include the compiled Ratchet JS -->
+    
+    <title>squibTurf | Surf the Turf</title>		
+
+  </head>
+  <body ontouchstart="" class="show-profiles show-pinned show-squibs">
+          <div class="whitebar"></div>
+
+    <!-- Make sure all your bars are the first things in your <body> -->
+    <header class="bar bar-nav">
+    	<a class="icon icon-gear pull-left settings opt-message" href="#settings" data-function="settings" data-message="Gettin' your Settings"></a>
+<!--     	<a class="area-user"></a> -->
+     <!-- <a class="icon icon-bars pull-left" id="panelMenu"></a> -->
+        <h1 class="title main">squibTurf</h1>
+      
+        <a class="icon icon-compose pull-right" href="#newSquib"></a>
+        <input type="search" name="search" class="search" data-function="search"/>
+        <a class="icon icon-search pull-right disabled" data-function="icon_search"></a>
+        
+        
+    </header>
+
+     
+    <!-- Wrap all non-bar HTML in the .content div (this is actually what scrolls) -->
+			<div class="content">
+				<div class="content-padded">
+				    <div class="news-feed-wrap page home">            
+				    <span class="small"><strong>News </strong> near you... 
+				       	<div class="coord"></div>
+				        <div class="filter-icon">	
+				       	<a href="#" class="show-profile active" id="show-profiles" data-function="feed_filter"></a>
+				       	<a href="#" class="show squibs active" id="show-squibs" data-function="feed_filter"></a>
+				       	<a href="#" class="show-pinned-squibs active" id="show-pinned" data-function="feed_filter"></a>
+				        </div>
+				    </span>
+			      
+			       <div class="news-feed">
+			       <div class="card">
+					  <ul class="table-view">
+					  </ul>
+			       </div> 
+			        </div>
+			    </div>
+					<div class="history-feed-wrap page history">            
+			       <span class="small"><strong>History</strong></span>
+			       <div class="news-feed">
+			         <div class="card">
+					   <ul class="table-view"></ul>
+			         </div> 
+			       </div>
+			    </div>
+					<div class="contact-feed-wrap page contacts">            
+			           <span class="small"><strong>Contacts</strong>  <span class="icon icon-more" data-function="expand_contacts" id="contact-info"></span></span>
+				       <div class="news-feed activity">
+				         <div class="card">
+						    <ul class="table-view"></ul>
+				         </div> 
+				       </div>
+				        <div class="news-feed contact-info">
+				         <div class="card">
+						    <ul class="table-view"></ul>
+				         </div> 
+				       </div>
+			    </div>
+				    <div class="squibs-feed-wrap page squibs">
+			    	<span class="small"><strong>Squibs</strong> <em> Swipe to delete</em> </span>
+			    	<div class="news-feed">
+			         <div class="card">
+					    <ul class="table-view"></ul>
+			         </div>
+			          
+			       </div>
+			    </div>
+				    <div class="mail-feed-wrap page mail">
+			    	
+						
+			    	<span class="small"><strong>Mail</strong> <em> Swipe to delete</em></span>
+			    	<div class="segmented-control">
+						  <a class="control-item active" href="#inBox" data-attr="inBox" data-function="mail_type">
+						    Inbox
+						  </a>
+						  <a class="control-item" href="#sent" data-attr="sent" data-function="mail_type">
+						    Sent
+						  </a>
+						  <a class="control-item" href="#trash" data-attr="trash" data-function="mail_type">
+						    Trash
+						  </a>
+						</div>
+			    	
+			         <div class="card">
+					    <span id="inBox" class="control-content active"><ul class="table-view"></ul></span>
+					    <span id="sent" class="control-content"><ul class="table-view"></ul></span>
+					    <span id="trash" class="control-content"><ul class="table-view"></ul></span>
+			         </div> 
+			     
+			    </div>
+				    <div class="search-feed-wrap page search">
+				    	<span class="small"><strong>Search results...</strong></span>
+					
+								<div class="news-feed">
+						         <div class="card">
+								   <ul class="table-view"></ul>
+						         </div> 
+						       </div>
+
+				    </div>
+				</div>
+			</div>
+                      
+			<div id="newSquib" class="modal">
+				<header class="bar bar-nav">
+					<a class="icon pull-left post opt-message" data-function="post_squib" data-message="Posting Your Squib..."><span>Post</span></a>
+					<a class="icon icon-close pull-right" data-function="close_modal"></a>
+					<h1 class="title">New Squib</h1>
+				</header>
+				<div class="content">
+					<div class="content-padded">
+						<ul class="table-view">
+							<li class="table-view-cell">
+							Pin the Squib
+							<div class="toggle pin-squib">
+							    <div class="toggle-handle" style="-webkit-transform: translate3d(0px, 0px, 0px);"></div>
+							</div>
+							</li>
+						</ul>
+						<div id="squibImg">
+						</div>
+						<div class="text-area">
+							<textarea class="newSquib" placeholder="Post a Squib..." rows="5"></textarea>
+							<button class="select-camera" onclick="getPhoto(navigator.camera.PictureSourceType.CAMERA);"></button>
+							<button class="select-image" onclick="getPhoto(navigator.camera.PictureSourceType.PHOTOLIBRARY);"></button>
+
+							<form action="http://squibturf.com/server/squibImg.php" method="post" enctype="multipart/form-data" id="MyUploadForm" style="display:none;">
+							<input name="file" id="imageInput" type="file" />
+							</form>
+									
+
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<div id="settings" class="modal">
+				<header class="bar bar-nav">
+				<a class="icon icon-close pull-right" data-function="close_modal" ></a>
+				<h1 class="title">Settings</h1>
+				</header>
+				<div class="content">
+				<div class="content-padded">
+					<ul class="table-view">
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				</div>
+			</div>
+			<div id="profileWindow" class="modal">
+					<header class="bar bar-nav">
+					<a class="icon icon-close pull-right" data-function="close_modal"></a>
+					<h1 class="title">Profile</h1>
+					</header>
+					<div class="content">
+					<div id="iwindow">
+					<div class="content-padded">
+
+					</div>
+					</div>
+					</div>
+					</div>
+		    <div id="replyWindow" class="modal">
+					<header class="bar bar-nav">
+					 <a class="icon icon-close pull-right" data-function="close_modal"></a>
+					 <h1 class="title">Reply</h1>
+					</header>
+					<div class="content">
+					   <div id="iwindow">
+					       <div class="content-padded">
+
+					       </div>
+					   </div>
+					</div>
+					<div class="reply-here">
+			          <textarea placeholder="Reply" class="squib-reply"></textarea> 
+			          <span class="post-reply" data-function="post_reply">Reply</span>
+					</div>
+			</div>
+		    <div id="mailWindow" class="modal">
+					<header class="bar bar-nav">
+					 <a class="icon icon-close pull-right" data-function="close_modal"></a>
+					 <h1 class="title">Mailbox</h1>
+					</header>
+					<div class="content">
+					   <div id="iwindow">
+					       <div class="content-padded">
+
+					       </div>
+					   </div>
+					</div>
+			</div>			
+			<div id="loginWindow" class="modal active graphic">
+				<header class="bar bar-nav">
+				<!-- <h1 class="title">Login</h1> -->
+				</header>
+
+				<div class="content">
+				     <div id="iwindow">
+				       <div class="content-padded">
+				       	      <h1 class="main-title">squibTurf</h1>
+				       	      <span class="main-subtitle">surf the turf</span>
+				        </div>
+				    </div>
+				 </div>
+				 <div class="fb_cont"><a href="#" class="facebook_login" data-function="facebook_login" style="display:none;">Login With Facebook</a></div>
+
+				 <div class="google_cont"><a href="#" class="google_login" data-function="google_login" style="display:none;">Login With Google+</a></div>
+
+			</div> 
+			<div id="mail-user" class="modal" style="z-index:1005;">
+			    <header class="bar bar-nav">
+					<a class="icon pull-left send-mail"><span data-function="send_mail">Send</span></a>
+					<a class="icon icon-close pull-right" data-function="close_modal"></a>
+					<h1 class="title">Message to <span class="data-user-mail"></span></h1>
+				</header>
+				
+
+				<div class="content">
+						<div id="iwindow">
+						   <div class="content-padded">
+					  		<span class="main-subtitle">Message</span>
+					
+							<!-- //new user -->
+			   				<form>
+								<div class="input-row"> 
+								    <div class="email content-avatar"></div> 
+								    <span class="subject-chat"><input type="text" id="subject" placeholder="Type subject here"></span>
+								    <div class="email to-avatar"></div> 
+							    </div>
+							    <textarea rows="5" id="msg-body" placeholder="Type message here..."></textarea>
+				
+							</form>
+					    </div>
+			        </div>
+			   </div>
+			</div>
+			<div id="error-occ" class="modal" style="z-index:1005">
+				 <header class="bar bar-nav">
+					 <h1 class="title"> Set Description </h1>
+				 </header>
+				 <div class="content">
+					<div class="content-padded">
+					   <p>Write a description about yourself...!</p>
+			<div class="mail-reply">
+			<textarea id="occ-body" placeholder="Our Records indicate that you haven't set a description. Set one now."></textarea>
+			<button class="occ-btn btn btn-primary" data-function="set_occ" data-message="Setting your profile...">Done</button>
+			</div>
+					</div>
+				 </div>
+			</div>
+
+	<footer>
+		 <nav class="bar bar-tab">
+			  <a class="tab-item active opt" data-function="opt" id="home">
+			    <span class="icon icon-home"></span>
+			    <span class="tab-label">Home</span>
+			  </a>
+
+			  <a class="tab-item opt opt-message" id="contacts" data-function="opt, get_contacts" data-message="Finding' your Contacts...">
+			    <span class="icon icon-person"></span>
+			    <span class="tab-label">Contacts</span>
+			  </a>
+
+			  <a class="tab-item opt opt-message" id="squibs"  data-function="opt, get_squibs"  data-message="Fetchin' your Squibs...">
+			    <span class="icon icon-squibs"></span>
+			    <span class="tab-label">Squibs</span>
+			  </a>
+			 
+			  <a class="tab-item opt opt-message" id="mail"  data-function="opt, check_inbox" data-message="Checkin' your Mail...">
+			    <span class="icon icon-mail"></span>
+			    <span class="tab-label">Mailbox</span>
+			  </a>
+
+			  <a class="tab-item opt opt-message" id="history"  data-function="opt, get_history"  data-message="Pullin' your History...">
+			    <span class="icon icon-history"></span>
+			    <span class="tab-label">History</span>
+			  </a>
+
+			   <a class="tab-item opt-messagef" id="exit"  data-function="opt, exit" data-message="Goodbye...">
+			    <span class="icon icon-exit exit"></span>
+			    <span class="tab-label">Sign Out</span>
+			  </a>
+		</nav>
+	</footer>
+	<div class="error">
+	</div>
+	<div class="shadow"></div>
+   <div class="spinner-cont">
+	<div class="spinner">
+		  <div class="rect1"></div>
+		  <div class="rect2"></div>
+		  <div class="rect3"></div>
+		  <div class="rect4"></div>
+		  <div class="rect5"></div>
+	</div>
+	<div class="spin-msg"></div>
+   </div>
+	<script src="socket.io/socket.io.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/openFB.js"></script>
+    <script type="text/javascript" src="js/google.js"></script>
+    <script type="text/javascript" src="js/client-new.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/squibturf.js"></script>
+
+
+   
+    <script type="text/javascript">    
+            var user_obj = {};
+            var squib_obj = {};
+            var profile_obj = {};
+            var get_squibs = 0;
+            var usersProxArray = [];
+            var pinSquibArray=[];
+            var difference = .005; 
+            var socket;
+
+
+            document.addEventListener("deviceready", squibturf.initialize(), false);
+
+
+            
+            
+    </script>
+ </body>
+</html>

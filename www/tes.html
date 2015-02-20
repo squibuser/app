@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+	<head>
+    <meta charset="utf-8">
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Include the compiled Ratchet CSS -->
+    <link href="css/ratchet.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+ 
+
+
+
+    <title>squibTurf | Surf the Turf</title>		
+
+  </head>
+  <body ontouchstart="">
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />
+    <header class="bar bar-nav">
+      <h1 class="title">Login</h1>
+    </header>
+     <div class="content">
+       <div id="iwindow">
+        <div class="content-padded">
+          <form class="input-group">
+			<div class="input-row">
+			<label>Email</label>
+			<input type="email" id="email" placeholder="example@example.com">
+			</div>
+			<div class="input-row">
+			<label>Password</label>
+			<input type="password" id="password" placeholder="Password">
+			</div>
+			<br />
+			<br />
+			<a class="btn btn-primary btn-block" id="login">Login</a>
+		</form>
+		<div class="error" style="display:none;">
+		        <div class="content-padded">
+					   <span></span>
+					   <a id="back" class="btn btn-primary btn-block">Retry</a>
+		        </div>
+		</div>
+       <div class="verifying" style="display:none">
+           <span>Verifying...</span>
+        </div>		
+        </div>
+	  </div>
+    </div>
+    <!---content ---->
+    <script>
+    $(function(){
+	        $('#login').click(function(e){
+	           e.preventDefault();
+		       check_user(); 
+	        });
+	        $('#back').click(function(){
+				$('.error').fadeOut();
+				$('.input-group').delay(500).fadeIn();
+
+	        });
+	        
+	        function back(){
+		          $('.error').fadeOut();
+	        }	      
+	        
+	          
+	        function check_user(){
+	           
+	           $('.input-group').fadeOut();
+	           
+	           var email = $('input#email').val();
+ 	           var password = $('input#password').val();
+	           var type = 'validate'; 
+               var postData = {email:email, password:password, type:type};
+               console.log(postData);
+               	            
+	          $.ajax({
+		          url: 'http://squibturf.com/server/server.php',
+		          data: postData,
+		          type: 'POST',
+		          dataType: 'json',
+		          success: function(data){
+                      
+			          var error = data.error;
+			          if( error != ''){
+				          $('.error span').html(error + "<br /><br /> ");
+				          $('.error').fadeIn();
+			          }else{
+				          $('.verifying').fadeIn();
+				          
+				           window.location.href = "/home.html";
+				          
+			          }
+		          }
+	          });
+	          
+		        
+	        }
+    });
+    </script>
+	<script src="js/fingerblast.js"></script>
+  </body>
+</html>
