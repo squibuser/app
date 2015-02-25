@@ -1,35 +1,5 @@
 var squibturf = {
-                			
-  /*
-     ajaxCall: function(postData){
-        if(postData.type != 'pinned_squibs'){
-            $('.spinner-cont').stop().fadeIn();
-        }
-		$.ajax({
-			url:  "http://squibturf.com/server/server.php", 
-			data: postData, 
-			type: 'POST',
-			dataType: 'json',
-			cache: false,
-			async:true,
-			success: function(data){
-	            eval(data.function)(data);			
-		    },
-			error: function (request, status, error) {
-		        ////console.log(request.responseText);
-		    }      
-		}).done(function(data){
-		    if(data.function !="squibturf.loadPinnedSquibs"){
-	            //console.log(data);
-	            $('.spin-msg').html('Done...');
-	            $('.spinner-cont').stop().delay(1000).fadeOut();
-	         }
-		});
-		
-		
-    },
-    
-*/
+ 
     
     //Call ajax here
     socketCall: function(postData){
@@ -70,7 +40,7 @@ var squibturf = {
 		
 		console.log('bind events');
 		var pageHeight = $(window).height() - 110;
-		$('.page').css('height',  pageHeight +'px');
+		$('.content .page').css('height',  pageHeight +'px');
 	          
 	    var scrolling = false;
 		var endScrolling;
@@ -177,27 +147,74 @@ var squibturf = {
 	
 	//initilize function
 	initialize: function (){
-        //check if facebook session is set 
+        //check if facebook session is set
+        console.log("initialized");
 	    this.bindEvents();
 		socket = io.connect('http://squibturf.com:8080', {'force new connection':true});
 	    client.socket(socket);
 	    openFB.init({appId: '746523682089857'});
-		this.validate();
+        this.validate();
 
-	},	
+	},
 
-	
+    
+    
+    register: function() {
+        try
+        {
+            var pushNotification = window.plugins.pushNotification;
+            if (window.device.platform == 'iOS') {
+                // Register for IOS:
+                pushNotification.register(
+                  squibturf.pushSuccessHandler,
+                  squibturf.pushErrorHandler, {
+                  "badge":"true",
+                  "sound":"true",
+                  "alert":"true",
+                  "ecb":"onNotificationAPNS"
+                  }
+                  );
+            }
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
+        
+       
+    },
+    
+    
+    
+    
+    
+   pushSuccessHandler: function(result)
+    {
+        var type = "store_token";
+        var userKey =  squibturf.getUserKey();
+        var postData = {type:type, result:result, userKey:userKey};
+        squibturf.socketCall(postData);
+    },
+    
+    
+    pushErrorHandler : function(error)
+    {
+        console.log(error);
+    },
+    
    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    onNotificationAPNS : function(e)
+    {
+        console.log(e);
+    },
+    
+    
+    
+    
+    
+    
+    
+    
 	
 	//facebook login
 	facebook_login: function(){
@@ -331,6 +348,7 @@ var squibturf = {
 			var type="sign_out";
 			var postData = {type:type};
 		    window.localStorage.clear();
+		    $.removeCookie("data-user");
    			squibturf.socketCall(postData);
 			openFB.logout();
 	},
@@ -370,7 +388,6 @@ var squibturf = {
     
     //load DOM
     load: function(data){
-        
 		var occ = data.occ;
 		if(occ == null) {occ = "";}
 		if((occ == "") || (occ.trim().length == 0)){
@@ -380,6 +397,7 @@ var squibturf = {
 			$('.modal').removeClass('active');
 			$.cookie('data-user', data.userKey);
 			window.localStorage.setItem("data-user", data.userKey);
+            squibturf.register();
 			user_obj = data;
 			client.geo();
 		}

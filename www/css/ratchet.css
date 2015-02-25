@@ -302,7 +302,7 @@ a:active {
 }
 
 .content-padded {
-  margin: 0px 10px;
+  /* margin: 0px 10px; */
 
 }
 
@@ -939,6 +939,7 @@ select {
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 3px;
+  text-align: center;
 }
 .segmented-control .control-item {
   display: table-cell;
@@ -1449,4 +1450,3 @@ select {
 
 .icon-left:before {
   content: '\e822';
-}

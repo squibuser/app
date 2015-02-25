@@ -98,11 +98,14 @@ var client = {
 			var thisUserOcc = data.occ.substring(0,100);
 			var thisUserName = data.name;
 			var thisUserAvatar = data.avatar;
+			
+			var userIndex = usersProxArray.indexOf(thisUserkey);
+			console.log(userIndex);
 			if(thisUserkey != userKey){
 			            var lat_difference  =  Math.abs(yourLat - userLat);
 			            var lng_difference  =  Math.abs(yourLng - userLng);    
 			            if((lat_difference < difference) && (lng_difference < difference)){
-						    $('.user-'+ thisUserkey).fadeIn();   
+						    $('.user-'+ thisUserkey);   
 						            var inArray = $.inArray(thisUserkey,usersProxArray);
 									if (inArray == -1){
 									    usersProxArray.push(thisUserkey); 
@@ -125,7 +128,8 @@ var client = {
 								    }
 			
 					    }else{
-						    $('.user-'+ thisUserkey).fadeOut();   
+					        delete usersProxArray[userIndex];
+						    $('.user-'+ thisUserkey).remove();   
 					    }
 					   
 				                
@@ -229,7 +233,10 @@ var client = {
 
 	disconnect: function(data){
      	 //console.log(data);
-	     $('.user-'+ data).fadeOut();   
+	     var userIndex = usersProxArray.indexOf(data);
+			console.log(userIndex); 
+	      delete usersProxArray[userIndex];
+						    $('.user-'+ data).remove();  
 
 	
 	}
