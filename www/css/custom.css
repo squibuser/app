@@ -582,7 +582,7 @@ div#menuPanel nav {
     font-size: 9px;
 }
 .graphic .content {
-    background: url('../image/bg-header.jpg') -249px 0px no-repeat;
+    background: #fafafa;
     background-size: auto 100%;
 }
 
@@ -612,17 +612,18 @@ div#menuPanel nav {
 
 h1.main-title {
     font-family: 'Rum Raisin', sans-serif !important;
-    color: #fff;
+    color: #556983;
     -webkit-font-smoothing: antialiased;
     width: 100%;
     text-align: center;
-    font-size: 50px;
+    font-size: 80px;
     letter-spacing: -2px;
     padding-top: 33px;
+    text-shadow: 0px 2px 0px #DFDCDC;
 }
 
 span.main-subtitle {
-    color: #fff;
+    color: #6F6F6F;
     font-size: 24px;
     letter-spacing: 4px;
     text-align: center;
@@ -1243,7 +1244,7 @@ a.google_login{
 
 .fb_cont, .google_cont {
     position: absolute;
-    display: block;
+    display: none;
     height: 50px;
     width: 100%;
     top: 250px;

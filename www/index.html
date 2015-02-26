@@ -30,6 +30,9 @@
     <link href="css/ratchet.css" rel="stylesheet">
 
     <link href="css/custom.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+
 <!--     <link href="css/emoji.css" rel="stylesheet"> -->
     <script src="js/ratchet.js"></script>
     <script src="js/fingerblast.js"></script>
@@ -49,7 +52,7 @@
     	<a class="icon icon-gear pull-left settings opt-message" href="#settings" data-function="settings" data-message="Gettin' your Settings"></a>
 <!--     	<a class="area-user"></a> -->
      <!-- <a class="icon icon-bars pull-left" id="panelMenu"></a> -->
-        <h1 class="title main">squibTurf</h1>
+        <h1 class="title main ">squibTurf</h1>
       
         <a class="icon icon-compose pull-right" href="#newSquib"></a>
         <input type="search" name="search" class="search" data-function="search"/>
@@ -248,14 +251,14 @@
 				<div class="content">
 				     <div id="iwindow">
 				       <div class="content-padded">
-				       	      <h1 class="main-title">squibTurf</h1>
-				       	      <span class="main-subtitle">surf the turf</span>
+				       	      <h1 class="main-title bounceInDown animated">squibTurf</h1>
+				       	      <span class="main-subtitle fadeIn animated">surf the turf</span>
 				        </div>
 				    </div>
 				 </div>
-				 <div class="fb_cont"><a href="#" class="facebook_login" data-function="facebook_login" style="display:none;">Login With Facebook</a></div>
+				 <div class="fb_cont" style="display:none;"><a href="#" class="facebook_login" data-function="facebook_login" >Login With Facebook</a></div>
 
-				 <div class="google_cont"><a href="#" class="google_login" data-function="google_login" style="display:none;">Login With Google+</a></div>
+				 <div class="google_cont" style="display:none;"><a href="#" class="google_login" data-function="google_login" >Login With Google+</a></div>
 
 			</div> 
 			<div id="mail-user" class="modal" style="z-index:1005;">
@@ -368,8 +371,6 @@
             var pinSquibArray=[];
             var difference = .005; 
             var socket;
-
-
             document.addEventListener("deviceready", squibturf.initialize(), false);
 
 

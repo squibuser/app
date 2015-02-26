@@ -332,8 +332,7 @@ var squibturf = {
 	
 	 //session not set
     not_set: function (data){
-        $('.facebook_login').show();
-        $('.google_login').show();	
+        $('.fb_cont, .google_cont').fadeIn();	
 
         
         // //console.log('squib session is not set');
